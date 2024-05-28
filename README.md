@@ -6,3 +6,4 @@ https://spring.io/guides
 
 1. [restservice](restservice)
 2. [consuming-rest](consuming-rest)
+3. [scheduling-tasks](scheduling-tasks)
