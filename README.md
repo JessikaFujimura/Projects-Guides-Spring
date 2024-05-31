@@ -8,3 +8,4 @@ https://spring.io/guides
 2. [consuming-rest](consuming-rest)
 3. [scheduling-tasks](scheduling-tasks)
 4. [building-java-with-gradle](building-java-with-gradle)
+5. [building-java-with-maven](building-java-with-maven)
