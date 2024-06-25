@@ -2,16 +2,21 @@ package com.example.uploading_files.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+@Service
 public class FileSystemStorageService implements StorageService{
     private final Path rootLocation;
     
@@ -38,8 +43,8 @@ public class FileSystemStorageService implements StorageService{
          if (multipartFile.isEmpty()) {
              throw new StorageException("Failed to store empty file");
          }
-         Path destination = this.rootLocation.resolve(multipartFile.getOriginalFilename()).normalize().toAbsolutePath();
-         if (destination.getParent().equals(this.rootLocation.toAbsolutePath())) {
+         Path destination = this.rootLocation.resolve(Paths.get(multipartFile.getOriginalFilename())).normalize().toAbsolutePath();
+         if (!destination.getParent().equals(this.rootLocation.toAbsolutePath())) {
              throw new StorageException("Can not store file outside current directory.");
          }
          try (InputStream inputStream = multipartFile.getInputStream()) {
@@ -52,17 +57,31 @@ public class FileSystemStorageService implements StorageService{
     
     @Override
     public Stream<Path> loadAll() {
-        return null;
+        try {
+            return Files.walk(this.rootLocation, 1).filter(path -> !path.equals(this.rootLocation)).map(rootLocation::relativize);
+        } catch (IOException e){
+            throw new StorageException("Failed to read stored files", e);
+        }
     }
     
     @Override
     public Path load(final String fileName) {
-        return null;
+        return rootLocation.resolve(fileName);
     }
     
     @Override
     public Resource loadAsResource(final String fileName) {
-        return null;
+        try{
+            Path file = load(fileName);
+            Resource resource = new UrlResource(file.toUri());
+            if(resource.exists() || resource.isReadable()){
+                return resource;
+            } else {
+                throw new StorageFileNotFoundException("Could not read file: "+ fileName);
+            }
+        } catch (MalformedURLException e) {
+            throw new StorageFileNotFoundException("Could not read file: " +  fileName, e);
+        }
     }
     
     @Override
