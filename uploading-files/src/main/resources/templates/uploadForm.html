@@ -27,7 +27,7 @@
 </div>
 <div>
   <ul>
-    <li th:each="file: ${file}" style="text-style:none">
+    <li th:each="file: ${files}" >
         <a th:href="${file}" th:text="${file}"/>
     </li>
   </ul>

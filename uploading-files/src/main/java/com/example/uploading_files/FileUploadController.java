@@ -8,10 +8,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +34,7 @@ public class FileUploadController {
     @GetMapping("/")
     public String listUploadFiles(Model model) {
         model.addAttribute("files", storageService.loadAll().map(path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                "serverFile", path.getFileName().toString()).build().toUri().toString()).collect(Collectors.toList()));
+                "serveFile", path.getFileName().toString()).build().toUri().toString()).collect(Collectors.toList()));
         return "uploadForm";
     }
     
@@ -56,6 +56,7 @@ public class FileUploadController {
     }
     
     
+    @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException ex){
         return ResponseEntity.notFound().build();
     }
