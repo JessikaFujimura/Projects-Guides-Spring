@@ -9,3 +9,4 @@ https://spring.io/guides
 3. [scheduling-tasks](scheduling-tasks)
 4. [building-java-with-gradle](building-java-with-gradle)
 5. [building-java-with-maven](building-java-with-maven)
+6. [relational-data-access](relational-data-access)
