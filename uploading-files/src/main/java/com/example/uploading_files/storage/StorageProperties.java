@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("storage")
 public class StorageProperties {
     
-    private String location = "/Users/jessika/Programming/Projects-Guides-Spring/uploading-files/direct-file";
+    private String location = "~/directory-create";
     
     public String getLocation() {
         return location;
