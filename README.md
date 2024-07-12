@@ -11,3 +11,4 @@ https://spring.io/guides
 5. [building-java-with-maven](building-java-with-maven)
 6. [relational-data-access](relational-data-access)
 7. [uploading-files](uploading-files)
+8. [authenticating-ldap](authenticating-ldap)
