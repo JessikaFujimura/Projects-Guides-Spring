@@ -12,3 +12,4 @@ https://spring.io/guides
 6. [relational-data-access](relational-data-access)
 7. [uploading-files](uploading-files)
 8. [authenticating-ldap](authenticating-ldap)
+9. [messaging-redis](messaging-redis)
