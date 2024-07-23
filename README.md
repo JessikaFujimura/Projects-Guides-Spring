@@ -13,3 +13,4 @@ https://spring.io/guides
 7. [uploading-files](uploading-files)
 8. [authenticating-ldap](authenticating-ldap)
 9. [messaging-redis](messaging-redis)
+10. [messaging-rabbitmq](messaging-rabbitmq)
