@@ -14,3 +14,4 @@ https://spring.io/guides
 8. [authenticating-ldap](authenticating-ldap)
 9. [messaging-redis](messaging-redis)
 10. [messaging-rabbitmq](messaging-rabbitmq)
+11. [accessing-data-neo4j](accessing-data-neo4j)
